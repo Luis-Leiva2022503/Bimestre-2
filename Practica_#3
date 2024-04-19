@@ -1,0 +1,59 @@
+/*
+   Fundacion Kinal
+   Centro educativo tecnico laboral Kinal
+   Quinto perito
+   Quinto electronica
+   Codigo Tecnico: EB5AV 
+   Curso: Taller de electronica digital y reparacion de computadoras I
+   Proyecto: Tipos de datos - Structs
+   Dev: Profe. Alejandro Lopez Navas
+   Fecha: 18 de abril
+*/
+
+#define B_avence 2
+#define B_retroceso 3
+#define Config_I(pin) pinMode(pin, INPUT)
+#define Leer(pin) digitalRead(pin)
+#define Pausa delay(300)
+
+struct datos_producto
+{
+  String nombre;        
+  byte cantidad;           
+};
+datos_producto producto[4] = {
+ {"NUCITA", 29},
+ {"SNICKERS", 25},
+ {"HERSHEY'S", 31},
+ {"SKITLLES", 27},
+};
+
+int Contador = -1;
+
+void setup()
+{
+  Config_I(B_avence);
+  Config_I(B_retroceso);
+  Serial.begin(9600);
+  Serial.println("Inventario maquina expendedora de dulces Kinal");
+  Serial.println("NUCITA");
+  Serial.println("SNICKERS");
+  Serial.println("HERSHEY'S");
+  Serial.println("SKITLLES");
+}
+
+void loop()
+{ 
+  if(Leer(B_avence)==1){
+    Contador = (Contador+1)%4;
+    Serial.println("Nombre del Producto: " + producto[Contador].nombre);
+    Serial.println("Cantidad en Stock: " + String(producto[Contador].cantidad));
+    Pausa;
+  }
+  if(Leer(B_retroceso)==1){
+    Contador = (Contador-1+4)%4;
+    Serial.println("Nombre del Producto: " + producto[Contador].nombre);
+    Serial.println("Cantidad en Stock: " + String(producto[Contador].cantidad));
+    Pausa;
+  }
+}
