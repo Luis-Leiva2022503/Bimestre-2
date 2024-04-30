@@ -1,0 +1,292 @@
+/*
+   Fundacion Kinal
+   Centro educativo tecnico laboral Kinal
+   Quinto perito
+   Quinto electronica
+   Codigo Tecnico: EB5AV 
+   Curso: Taller de electronica digital y reparacion de computadoras I
+   Proyecto: Tipos de bucles y condicionales - 2
+   Dev: Profe. Alejandro Lopez Navas
+   Fecha: 25 de abril
+*/
+
+#define L1 4 
+#define L2 5 
+#define L3 6 
+#define L4 7 
+#define L5 8 
+#define L6 9  
+#define L7 10 
+#define L8 11
+#define B_1 2
+#define B_2 3
+#define OUT(pin) pinMode(pin, OUTPUT)
+#define IN(pin) pinMode(pin, INPUT)
+#define Lee(pin) digitalRead(pin)
+#define On(pin) digitalWrite(pin, HIGH)
+#define Off(pin) digitalWrite(pin, LOW)
+
+int y=0;
+
+void setup()
+{
+  IN(B_1);
+  IN(B_2);
+  OUT(L1);
+  OUT(L2);
+  OUT(L3);
+  OUT(L4);
+  OUT(L5);
+  OUT(L6);
+  OUT(L7);
+  OUT(L8);
+}
+
+void loop()
+{
+  if(Lee(B_1)==HIGH)
+  {
+  for(int x=0; x<=5; x++)
+  {
+    if(x==0 || x==2 || x==4)
+    {
+      for(y; y<=7; y++)
+      {
+        if(y==0)
+        {
+          On(L1);
+          
+        }
+        if(y==1)
+        {
+          On(L2);
+          Off(L1);
+        }
+        if(y==2)
+        {
+          On(L3);
+          Off(L2);
+        }
+        if(y==3)
+        {
+          On(L4);
+          Off(L3);
+        }
+        if(y==4)
+        {
+          On(L5);
+          Off(L4);
+        }
+        if(y==5)
+        {
+          On(L6);
+          Off(L5);
+        }
+        if(y==6)
+        {
+          On(L7);
+          Off(L6);
+        }
+        if(y==7)
+        {
+          On(L8);
+          Off(L7);
+        }
+        delay(500);
+      }
+    }
+    if(x==1 || x==3 || x==5)
+    {
+      for(y; y>=0; y--)
+      {
+        if(y==0)
+        {
+          On(L1); 
+        }
+        if(y==1)
+        {
+          On(L1);
+          Off(L2);
+        }
+        if(y==2)
+        {
+          On(L2);
+          Off(L3);
+        }
+        if(y==3)
+        {
+          On(L3);
+          Off(L4);
+        }
+        if(y==4)
+        {
+          On(L4);
+          Off(L5);
+        }
+        if(y==5)
+        {
+          On(L5);
+          Off(L6);
+        }
+        if(y==6)
+        {
+          On(L6);
+          Off(L7);
+        }
+        if(y==7)
+        {
+          On(L7);
+          Off(L8);
+        }
+        delay(500);
+      }
+    }
+  }
+    for(int z=0; z<=2; z++)
+    {
+      if(z==0 || z==1 || z==2)
+      {
+        On(L1);
+        On(L2);
+        On(L3);
+        On(L4);
+  		On(L5);
+  		On(L6);
+  		On(L7);
+        On(L8);
+        delay(500);
+  		Off(L1);
+  		Off(L2);
+  		Off(L3);
+  		Off(L4);
+  		Off(L5);
+  		Off(L6);
+  		Off(L7);
+  		Off(L8);
+        delay(500);
+      }
+    }
+  }
+  if(Lee(B_2)==HIGH)
+  {
+  for(int x=0; x<=5; x++)
+  {
+    if(x==0 || x==2 || x==4)
+    {
+      for(y; y<=7; y++)
+      {
+        if(y==0)
+        {
+          On(L1);
+        }
+        if(y==1)
+        {
+          On(L2);
+          Off(L1);
+        }
+        if(y==2)
+        {
+          On(L3);
+          Off(L2);
+        }
+        if(y==3)
+        {
+          On(L4);
+          Off(L3);
+        }
+        if(y==4)
+        {
+          On(L5);
+          Off(L4);
+        }
+        if(y==5)
+        {
+          On(L6);
+          Off(L5);
+        }
+        if(y==6)
+        {
+          On(L7);
+          Off(L6);
+        }
+        if(y==7)
+        {
+          On(L8);
+          Off(L7);
+        }
+        delay(250);
+      }
+    }
+    if(x==1 || x==3 || x==5)
+    {
+      for(y; y>=0; y--)
+      {
+        if(y==0)
+        {
+          On(L1); 
+        }
+        if(y==1)
+        {
+          On(L1);
+          Off(L2);
+        }
+        if(y==2)
+        {
+          On(L2);
+          Off(L3);
+        }
+        if(y==3)
+        {
+          On(L3);
+          Off(L4);
+        }
+        if(y==4)
+        {
+          On(L4);
+          Off(L5);
+        }
+        if(y==5)
+        {
+          On(L5);
+          Off(L6);
+        }
+        if(y==6)
+        {
+          On(L6);
+          Off(L7);
+        }
+        if(y==7)
+        {
+          On(L7);
+          Off(L8);
+        }
+        delay(250);
+      }
+    }
+  }
+    for(int z=0; z<=2; z++)
+    {
+      if(z==0 || z==1 || z==2)
+      {
+        On(L1);
+        On(L2);
+        On(L3);
+        On(L4);
+  		On(L5);
+  		On(L6);
+  		On(L7);
+        On(L8);
+        delay(250);
+  		Off(L1);
+  		Off(L2);
+  		Off(L3);
+  		Off(L4);
+  		Off(L5);
+  		Off(L6);
+  		Off(L7);
+  		Off(L8);
+        delay(250);
+      }
+    }
+  }
+}
