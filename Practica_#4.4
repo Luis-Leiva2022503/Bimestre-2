@@ -1,0 +1,104 @@
+/*
+   Fundacion Kinal
+   Centro educativo tecnico laboral Kinal
+   Quinto perito
+   Quinto electronica
+   Codigo Tecnico: EB5AV 
+   Curso: Taller de electronica digital y reparacion de computadoras I
+   Proyecto: Tipos de bucles y condicionales - 4
+   Dev: Profe. Alejandro Lopez Navas
+   Fecha: 25 de abril
+*/
+
+#define B_1 2
+#define B_2 3
+#define In(pin) pinMode(pin, INPUT)
+#define Lee(pin) digitalRead(pin)
+#define Escribe(pin) Serial.println(pin)
+
+int a=0;
+int e=0;
+int i=0;
+int o=0;
+int u=0;
+
+void setup()
+{
+  Serial.begin(9600);
+  In(B_1);
+  In(B_2);
+  Escribe("Inicio");
+}
+
+void loop()
+{
+  if(o==0)
+  {
+    u=0;
+  }
+  if(Lee(B_1)==HIGH)
+  {
+    a = 1-a;
+    if(o==1)
+    {
+      u = u+100;
+      o = 1-o;
+    }
+    if(e==1)
+    {
+      e = 1-e;
+    }
+  }
+  if(a==1)
+  {
+    for(u; u<=99; u++)
+    {
+      Escribe(u);
+      delay(100);
+      if(Lee(B_2) == HIGH)
+      {
+        u = u+100;
+        o = 1-o;
+      }
+    }
+  }
+  if(Lee(B_2)==HIGH)
+  {
+    e = 1-e;
+    if(o==1)
+    {
+      o = 1-o;
+      u = u-100;
+    }
+    if(a==1)
+    {
+      a = 1-a;
+    }
+  }
+  if(e==1)
+  {
+    for(u; u>=0; u--)
+    {
+      if(u == 0)
+      {
+        if(i==1)
+        {
+          Escribe(u);
+          u = u+99;
+        }
+        if(i==0)
+        {
+          u = u+99;
+          i = 1-i;
+        }
+      }
+      Escribe(u);
+      delay(100);
+      if(Lee(B_1) == HIGH)
+      {
+        u = u-100;
+        o = 1-o;
+      }
+    }
+  }
+}
