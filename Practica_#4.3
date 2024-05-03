@@ -6,7 +6,7 @@
    Codigo Tecnico: EB5AV 
    Curso: Taller de electronica digital y reparacion de computadoras I
    Proyecto: Tipos de bucles y condicionales - 3
-   Dev: Profe. Alejandro Lopez Navas
+   Dev: Luis Fernando Leiva Quezda
    Fecha: 25 de abril
 */
 
@@ -21,6 +21,11 @@
 #define E 10
 #define F 11
 #define G 12
+#define L_1 A0
+#define L_2 A1
+#define L_3 A2
+#define L_4 A3
+#define L_5 A4
 #define ModeIn(pin) pinMode(pin, INPUT)
 #define ModeOut(pin) pinMode(pin, OUTPUT)
 #define Escribir(pin) Serial.println(pin)
@@ -44,6 +49,11 @@ void setup()
   ModeOut(E);
   ModeOut(F);
   ModeOut(G);
+  ModeOut(L_1);
+  ModeOut(L_2);
+  ModeOut(L_3);
+  ModeOut(L_4);
+  ModeOut(L_5);
 }
 
 void loop()
@@ -59,74 +69,64 @@ void loop()
     {
       if(x==0 || x==2 || x==4)
       {
-        for(y; y<=5; y++)
+        for(y; y<=4; y++)
         {
+          delay(500);
           if(y==0)
           {
-            On(A); 
+            On(L_1); 
           }
           if(y==1)
           {
-            On(B);
-            Off(A);
+            On(L_2);
+            Off(L_1);
           }
           if(y==2)
           {
-            On(C);
-            Off(B);
+            On(L_3);
+            Off(L_2);
           }
           if(y==3)
           {
-            On(D);
-            Off(C);
+            On(L_4);
+            Off(L_3);
           }
           if(y==4)
           {
-            On(E);
-            Off(D);
+            On(L_5);
+            Off(L_4);
           }
-          if(y==5)
-          {
-            On(F);
-            Off(E);
-          }
-          delay(500);
         }
       }
       if(x==1 || x==3 || x==5)
       {
         for(y; y>=0; y--)
         {
+          delay(500);
           if(y==0)
           {
-            On(A); 
+            On(L_1); 
           }
           if(y==1)
           {
-            On(A);
-            Off(B);
+            On(L_1);
+            Off(L_2);
           }
           if(y==2)
           {
-            On(B);
-            Off(C);
+            On(L_2);
+            Off(L_3);
           }
           if(y==3)
           {
-            On(C);
-            Off(D);
+            On(L_3);
+            Off(L_4);
           }
           if(y==4)
           {
-            On(D);
-            Off(E);
+            On(L_4);
+            Off(L_5);
           }
-          if(y==5)
-          {
-            On(E);
-            Off(F);
-          }
-          delay(500);
         }
       }
     }
@@ -134,21 +134,17 @@ void loop()
     {
       if(z==0 || z==1 || z==2)
       {
-        On(A);
-        On(B);
-        On(C);
-        On(D);
-  		On(E);
-  		On(F);
-  		On(G);
+        On(L_1);
+        On(L_2);
+        On(L_3);
+        On(L_4);
+  		On(L_5);
         delay(500);
-  		Off(A);
-  		Off(B);
-  		Off(C);
-  		Off(D);
-  		Off(E);
-  		Off(F);
-  		Off(G);
+  		Off(L_1);
+  		Off(L_2);
+  		Off(L_3);
+  		Off(L_4);
+  		Off(L_5);
         delay(500);
       }
     }
@@ -237,7 +233,7 @@ void loop()
         Off(F);
         Off(G);
       }
-      delay(500);
+      delay(2000);
     }
   }
   if(Leer(B_4)==LOW && Leer(B_2)==HIGH)
@@ -249,6 +245,5 @@ void loop()
   {
     Escribir("Gracias por su atencion");
     delay(200);
-
   }
 }
