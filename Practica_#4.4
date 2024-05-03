@@ -6,7 +6,7 @@
    Codigo Tecnico: EB5AV 
    Curso: Taller de electronica digital y reparacion de computadoras I
    Proyecto: Tipos de bucles y condicionales - 4
-   Dev: Profe. Alejandro Lopez Navas
+   Dev: Luis Fernando Leiva Quezda
    Fecha: 25 de abril
 */
 
@@ -16,11 +16,8 @@
 #define Lee(pin) digitalRead(pin)
 #define Escribe(pin) Serial.println(pin)
 
-int a=0;
-int e=0;
-int i=0;
-int o=0;
-int u=0;
+int x=0;
+int y=0;
 
 void setup()
 {
@@ -32,77 +29,36 @@ void setup()
 
 void loop()
 {
-  if(o==0)
+  while(Lee(B_1)==HIGH && x<=99)
   {
-    u=0;
-  }
-  if(Lee(B_1)==HIGH)
-  {
-    a = 1-a;
-    if(o==1)
+    x++;
+    if(y==0 && x==100)
     {
-      u = u+100;
-      o = 1-o;
+      x = x-100;
     }
-    if(e==1)
+    Escribe(x);
+    delay(100);
+    if(y==1)
     {
-      e = 1-e;
+      y = 1-y;
     }
   }
-  if(a==1)
+  while(Lee(B_2)==HIGH && x>=0)
   {
-    for(u; u<=99; u++)
+    if(y==0)
     {
-      Escribe(u);
-      delay(100);
-      if(Lee(B_2) == HIGH)
+      y = 1-y;
+      if(x==0)
       {
-        u = u+100;
-        o = 1-o;
-        if(i==0)
-        {
-          i = 1-i;
-        }
+        x = 100;
       }
     }
-  }
-  if(Lee(B_2)==HIGH)
-  {
-    e = 1-e;
-    if(o==1)
+    x--;
+    if(y==1 && x==-1)
     {
-      o = 1-o;
-      u = u-100;
+      x = x+100;
     }
-    if(a==1)
-    {
-      a = 1-a;
-    }
-  }
-  if(e==1)
-  {
-    for(u; u>=0; u--)
-    {
-      if(u == 0)
-      {
-        if(i==1)
-        {
-          Escribe(u);
-          u = u+99;
-        }
-        if(i==0)
-        {
-          u = u+99;
-          i = 1-i;
-        }
-      }
-      Escribe(u);
-      delay(100);
-      if(Lee(B_1) == HIGH)
-      {
-        u = u-100;
-        o = 1-o;
-      }
-    }
+    Escribe(x);
+    delay(100);
   }
 }
