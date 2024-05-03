@@ -6,7 +6,7 @@
    Codigo Tecnico: EB5AV 
    Curso: Taller de electronica digital y reparacion de computadoras I
    Proyecto: Tipos de bucles y condicionales - 1
-   Dev: Profe. Alejandro Lopez Navas
+   Dev: Luis Fernando Leiva Quezda
    Fecha: 25 de abril
 */
 
@@ -17,9 +17,6 @@
 #define B 6
 #define C 7
 #define D 8
-#define E 9
-#define F 10
-#define G 11
 #define OUT(pin) pinMode(pin, OUTPUT)
 #define IN(pin) pinMode(pin, INPUT)
 #define Lee(pin) digitalRead(pin)
@@ -35,84 +32,61 @@ void setup()
   OUT(B);
   OUT(C);
   OUT(D);
-  OUT(E);
-  OUT(F);
-  OUT(G);
+  Serial.begin(9600);
 }
-
 void loop()
 {
   for(int x=0; x<=9; x++)
   {
+    Serial.println(x);
     if(x==0)
     {
-      On(A);
-      On(B);
-      On(C);
-      On(D);
-      On(E);
-      On(F);
-      Off(G);
+      Off(A);
+      Off(B);
+      Off(C);
+      Off(D);
     }
     if(x==1)
     {
-      Off(A);
-      On(B);
-      On(C);
+      On(A);
+      Off(B);
+      Off(C);
       Off(D);
-      Off(E);
-      Off(F);
-      Off(G);
     }
     if(x==2)
     {
-      On(A);
+      Off(A);
       On(B);
       Off(C);
-      On(D);
-      On(E);
-      Off(F);
-      On(G);
+      Off(D);
     }
     if(x==3)
     {
       On(A);
       On(B);
-      On(C);
-      On(D);
-      Off(E);
-      Off(F);
-      On(G);
+      Off(C);
+      Off(D);
     }
     if(x==4)
     {
       Off(A);
-      On(B);
+      Off(B);
       On(C);
       Off(D);
-      Off(E);
-      On(F);
-      On(G);
     }
     if(x==5)
     {
       On(A);
       Off(B);
       On(C);
-      On(D);
-      Off(E);
-      On(F);
-      On(G);
+      Off(D);
     }
     if(x==6)
     {
-      On(A);
-      Off(B);
+      Off(A);
+      On(B);
       On(C);
-      On(D);
-      On(E);
-      On(F);
-      On(G);
+      Off(D);
     }
     if(x==7)
     {
@@ -120,31 +94,22 @@ void loop()
       On(B);
       On(C);
       Off(D);
-      Off(E);
-      Off(F);
-      Off(G);
     }
     if(x==8)
     {
-      On(A);
-      On(B);
-      On(C);
+      Off(A);
+      Off(B);
+      Off(C);
       On(D);
-      On(E);
-      On(F);
-      On(G);
     }
     if(x==9)
     {
       On(A);
-      On(B);
-      On(C);
-      Off(D);
-      Off(E);
-      On(F);
-      On(G);
+      Off(B);
+      Off(C);
+      On(D);
     }
-    if(Lee(B_1)==LOW && Lee(B_2)==LOW && Lee(B_3)==LOW)
+    if(Lee(B_1)==LOW || Lee(B_2)==LOW || Lee(B_3)==LOW)
     {
       delay(500);
     }
