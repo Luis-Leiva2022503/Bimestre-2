@@ -1,0 +1,120 @@
+/*
+Fundacion Kinal 
+Centro educativo tecnico laboral Kinal 
+Quinto perito 
+Quinto electronica 
+Codigo Tecnico: EB5AV 
+Curso: Taller de electronica digital y reparacion de computadoras I 
+Proyecto: Funcionamiento de un buzzer 
+Dev: Luis Fernando Leiva Quezada 
+Fecha: 12 de abril
+*/
+
+const float Do = 261.626;
+const float Reb = 277.183;
+const float Re = 293.665;
+const float Mib = 311.127;
+const float Mi = 329.628;
+const float Fa = 349.228;
+const float Solb = 369.994;
+const float Sol = 391.995;
+const float Lab = 415.305;
+const float La = 440;
+const float Sib = 466.164;
+const float Si = 493.883;
+const float Buz = 2;
+
+void setup()
+{ 
+  pinMode(Buz, OUTPUT);
+}
+
+void loop()
+{
+  Entrada();
+  Repetir();
+
+  Tono(Mib, 250);  
+  Tono(Solb, 500);  
+  Tono(Mib, 350);  
+  Tono(Solb, 125);
+  Tono(Sib, 500);
+  Tono(Sol, 375);  
+  Tono(Sib, 125);
+  Tono(Re, 650);
+
+  delay(500);
+
+  Repetir();
+
+  Tono(Mib, 250);  
+  Tono(Solb, 500);  
+  Tono(Mib, 375);  
+  Tono(Sib, 125);
+  Tono(Sol, 500);  
+  Tono(Mib, 375);  
+  Tono(Sib, 125);
+  Tono(Sol, 650);  
+
+  delay(650);
+}
+
+void Tono(int t, int d)
+{
+  tone(Buz, t, d);
+  delay(450);
+  noTone(Buz);
+  delay(50);
+}
+
+void Entrada()
+{
+  Tono(Sol, 500);
+  Tono(Sol, 500);    
+  Tono(Sol, 500);
+  Tono(Mib, 350);
+  Tono(Sib, 450);   
+  Tono(Sol, 500);
+  Tono(Mib, 350);
+  Tono(Sib, 450);
+  Tono(Sol, 650);
+
+  delay(100);
+
+  Tono(Re, 500);
+  Tono(Re, 500);
+  Tono(Re, 500);  
+  Tono(Mib, 350);
+  Tono(Sib, 450);
+  Tono(Solb, 500);
+  Tono(Mib, 350);
+  Tono(Sib, 450);
+  Tono(Sol, 650);
+
+  delay(500);
+}
+
+void Repetir()
+{
+  Tono(Sol, 500);
+  Tono(Sol, 300);
+  Tono(Sol, 150);
+  Tono(Sol, 500);
+  Tono(Solb, 325);
+  Tono(Fa, 175);
+  Tono(Mi, 125);
+  Tono(Mib, 125);    
+  Tono(Mi, 250);
+
+  delay(325);
+
+  Tono(Lab, 250);
+  Tono(Reb, 500);
+  Tono(Do, 325);  
+  Tono(Si, 175);  
+  Tono(Sib, 125);  
+  Tono(La, 125);  
+  Tono(Sib, 250);  
+
+  delay(350);
+}
