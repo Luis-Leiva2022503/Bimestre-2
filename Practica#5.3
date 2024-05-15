@@ -1,0 +1,92 @@
+/*
+Fundacion Kinal 
+Centro educativo tecnico laboral Kinal 
+Quinto perito 
+Quinto electronica 
+Codigo Tecnico: EB5AV 
+Curso: Taller de electronica digital y reparacion de computadoras I 
+Proyecto: Funcionamiento de modulo Rele
+Dev: Luis Fernando Leiva Quezada 
+Fecha: 12 de abril
+*/
+
+#define Buz 2
+#define A 3
+#define B 4
+#define C 5
+#define D 6
+#define Led 7
+#define OUT(pin) pinMode(pin, OUTPUT)
+#define IN(pin) pinMode(pin, INPUT)
+#define Lee(pin) digitalRead(pin)
+#define On(pin) digitalWrite(pin, HIGH)
+#define Off(pin) digitalWrite(pin, LOW)
+#define pausa delay(750)
+
+void setup()
+{
+  OUT(A);
+  OUT(B);
+  OUT(C);
+  OUT(D);
+  OUT(Buz);
+  OUT(Led);
+  On(Led);
+}
+void loop()
+{
+  Secuencia();
+  Efectos();
+  Efectos();
+  On(Led);
+}
+void Secuencia()
+{
+  On(A);
+  Off(B);
+  Off(C);
+  On(D);
+  pausa;
+
+  Off(A);
+  pausa;
+
+  On(A);
+  On(B);
+  On(C);
+  Off(D);
+  pausa;
+
+  Off(A);
+  pausa;
+
+  On(A);
+  Off(B);
+  pausa;
+
+  Off(A);
+  pausa;
+
+  On(A);
+  On(B);
+  Off(C);
+  pausa;
+
+  Off(A);
+  pausa;
+
+  On(A);
+  Off(B);
+  pausa;
+}
+void Efectos()
+{
+  Off(A);
+  delay(100);
+  tone(Buz, 100, 500);
+  delay(100);
+  Off(Led);
+  delay(400);
+  noTone(Buz);
+  delay(300);
+}
