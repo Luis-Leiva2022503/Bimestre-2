@@ -1,0 +1,86 @@
+/*
+Fundacion Kinal 
+Centro educativo tecnico laboral Kinal 
+Quinto perito 
+Quinto electronica 
+Codigo Tecnico: EB5AV 
+Curso: Taller de electronica digital y reparacion de computadoras I 
+Proyecto: Funcionamiento de un display
+Dev: Luis Fernando Leiva Quezada 
+Fecha: 12 de abril
+*/
+
+#define Config(pin) pinMode(pin, OUTPUT)
+#define On(pin) digitalWrite(pin, HIGH)
+#define Off(pin) digitalWrite(pin, LOW)
+#define Escribe(pin) Serial.print(pin)
+#define Escribir(pin) Serial.println(pin)
+#define a 3
+#define b 4
+#define c 5
+#define d 6
+
+float Valor_1;
+float Valor_2;
+
+void Var()
+{
+  Config(a);
+  Config(b);
+  Config(c);
+  Config(d);
+}
+
+void setup()
+{
+  Var();
+  Serial.begin(9600);
+  Valor_1 = Convertir1(51);
+  Valor_2 = Convertir2(0.00251);
+  Escribe("Libras:");
+  Escribir(Valor_1);
+  Escribe("Microamperios:");
+  Escribir(Valor_2);
+}
+
+void loop()
+{
+  Contar();
+}
+
+float Convertir1(float Kg)
+{
+  float Resultado1;
+  Resultado1 = Kg * 2.20462;
+  return Resultado1;
+}
+
+float Convertir2(float A)
+{
+  float Resultado2;
+  Resultado2 = A * 1000000;
+  return Resultado2;
+}
+void Contar()
+{
+  On(a);
+  Off(b);
+  Off(c);
+  Off(d);
+  delay(500);
+  
+  On(b);
+  delay(500);
+  
+  Off(b);
+  On(c);
+  delay(500);
+  
+  On(b);
+  delay(500);
+  
+  Off(b);
+  Off(c);
+  On(d);
+  delay(500);
+}
