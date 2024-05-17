@@ -1,0 +1,144 @@
+/*
+   Fundacion Kinal
+   Centro educativo tecnico laboral Kinal
+   Quinto perito
+   Quinto electronica
+   Codigo Tecnico: EB5AV 
+   Curso: Taller de electronica digital y reparacion de computadoras I
+   Proyecto: Uso del al libreia LiquidCrystal
+   Dev: Luis Fernando Leiva Quezada
+   Fecha: 16 de mayo
+*/
+
+#include <LiquidCrystal.h>
+LiquidCrystal LCD(12, 11, 7, 6, 5, 4);
+
+#define Escribir(pin) LCD.print(pin)
+#define Borrar LCD.clear()
+#define Pausa delay(100)
+
+int seconds = 0;
+
+void setup()
+{
+  LCD.begin(16, 2); 
+  LCD.setCursor(0, 0);
+}
+
+void loop()
+{
+  LCD.setCursor(0, 0);
+  Escribir("L");
+  Pausa;
+  Escribir("u");
+  Pausa;
+  Escribir("i");
+  Pausa;
+  Escribir("s");
+  Pausa;
+  Escribir(" ");
+  Escribir("L");
+  Pausa;
+  Escribir("e");
+  Pausa;
+  Escribir("i");
+  Pausa;
+  Escribir("v");
+  Pausa;
+  Escribir("a");
+  Pausa;
+  LCD.setCursor(0, 1);
+  Pausa;
+  Escribir("2");
+  Pausa;
+  Escribir("0");
+  Pausa;
+  Escribir("2");
+  Pausa;
+  Escribir("2");
+  Pausa;
+  Escribir("5");
+  Pausa;
+  Escribir("0");
+  Pausa;
+  Escribir("3");
+  Pausa;
+  Borrar;
+  LCD.setCursor(1, 0);
+  Escribir("uis Leiva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(2, 0);
+  Escribir("is Leiva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(3, 0);
+  Escribir("s Leiva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(5, 0);
+  Escribir("Leiva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(6, 0);
+  Escribir("eiva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(7, 0);
+  Escribir("iva");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(8, 0);
+  Escribir("va");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(9, 0);
+  Escribir("a");
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(0, 1);
+  Escribir("2022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(1, 1);
+  Escribir("022503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(2, 1);
+  Escribir("22503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(3, 1);
+  Escribir("2503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(4, 1);
+  Escribir("503");
+  Pausa;
+  Borrar;
+  LCD.setCursor(5, 1);
+  Escribir("03");
+  Pausa;
+  Borrar;
+  LCD.setCursor(6, 1);
+  Escribir("3");
+  Pausa;
+  Borrar;
+  Pausa;
+}
