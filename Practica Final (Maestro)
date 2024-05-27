@@ -1,0 +1,188 @@
+/*
+Fundacion Kinal 
+Centro educativo tecnico laboral Kinal 
+Quinto perito 
+Quinto electronica 
+Codigo Tecnico: EB5AV 
+Curso: Taller de electronica digital y reparacion de computadoras I 
+Proyecto: Maestro
+Dev: Luis Fernando Leiva Quezada 
+Fecha: 26 de mayo
+*/
+
+//Se incluyen las librerias para utilizar los protocolos de comunicacion con los esclavos y el uso simplificado del teclado matricial
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
+
+//Se definen los pines analogicos para el uso de 4 leds
+#define L0 A0
+#define L1 A1
+#define L2 A2
+#define L3 A3
+
+//Se definen simplificaciones de codigos de uso cotidiano
+#define OUT(pin) pinMode(pin, OUTPUT)
+#define Escribir(pin) Serial.println(pin)
+#define Escribe(pin) lcd.print(pin)
+#define ON(pin) digitalWrite(pin, HIGH)
+#define OFF(pin) digitalWrite(pin, LOW)
+
+//Se configura el Lcd con I2C con el nombre de lcd, se le asigna la direccion la cantidad de filas y la cantidad de columnas
+LiquidCrystal_I2C lcd(0x20, 16, 2); 
+
+//Se crea una variable del tipo byte para una secuancia
+byte Led[] = {L0, L1, L2, L3};
+
+//Se configura el teclado matricial con el nombre de keys, le asignan el numero de filas y columnas, y le asignan un caracter a cada posision 
+char keys[4][4] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+//Se asignan los pines de cada fila y comluna, y se establece con el nombre de Teclado
+byte Filas[4] = {9, 8, 7, 6};
+byte Columnas[4] = {5, 4, 3, 2};
+Keypad Teclado = Keypad( makeKeymap(keys),Filas,Columnas,4,4);
+
+//Se establecen las fonciones que se implementaran en el void setup
+void ConfigAF(void);
+void ConfigC(void);
+
+void setup() 
+{
+  //Se llama a las funcion de la configuración del Auto Fantastico y los protocolos de comunicasión
+  ConfigAF();
+  ConfigC();
+  //Se escribe en la pantalla lcd de manera centrada en las 2 columnas
+  delay(400);
+  lcd.setCursor(3, 0);
+  Escribe("Luis Leiva");
+  lcd.setCursor(1, 1);
+  Escribe("Proyecto Final");
+}
+
+void loop() 
+{
+  //Se inicia la variable teclado para recibir la informacion que mande el teclado matricial
+  char tecla = Teclado.getKey();
+  //Se realiza un siwitch_case para separar las partes del proyectos que funcionaran al precionar una tecla
+  switch(tecla)
+  {
+    //Al precional la tecla 1 se escribe en el monitor serial y se llama a la funcion ParteA
+    case('1'):
+    {
+      Escribir("Parte a:");
+      delay(100);
+      ParteA();
+      break;
+    }
+    //Al precional la tecla 2 se escribe en el monitor serial y se llama a la funcion ParteB
+    case('2'):
+    {
+      Escribir("Parte b:");
+      delay(100);
+      ParteB();
+      break;
+    }
+    //Al precional la tecla 3 se escribe en el monitor serial y se realiza la secuncia del Auto Fantastico con ayuda de la funcion ParteC
+    case('3'):
+    {
+      int x = 0;
+      Escribir("Parte c:");
+      while(x<=4)
+      { 
+        ParteC();
+        x++;
+      }
+      delay(200);
+      while(x<=8)
+      { 
+        ON(L0);
+        ON(Led[4]);
+        delay(350);
+        OFF(L0);
+        OFF(Led[4]);
+        delay(350);
+        x++;
+      }
+      break;
+    }
+    //Al precional la tecla 4 se escribe en el monitor serial y se envia un 1 al escalvo 1
+    case('4'):
+    {
+      Escribir("Parte d:");
+      delay(100);
+      Wire.beginTransmission (1);
+      Wire.write(1);
+      Wire.endTransmission();
+      break;
+    }
+    //Al precional la tecla 5 se escribe en el monitor serial y se envia un 2 al escalvo 1
+    case('5'):
+    {
+      Escribir("Parte e:");
+      delay(100);
+      Wire.beginTransmission (1);
+      Wire.write(2);
+      Wire.endTransmission();
+      break;
+    }
+    }
+  delay(500);
+}
+//Se realiza un conteo del 0 al 99 en el monitor serial
+void ParteA()
+{
+  for(int a=0; a<=99; a++)
+  {
+    Escribir(a);
+    delay(500);
+  }
+}
+//Se Realiza un conteo del99 al 0 en el monitor serial
+void ParteB()
+{
+  for(int b=99; b>=0; b--)
+  {
+    Escribir(b);
+    delay(500);
+  }
+}
+//Se Realiza el codigo base para la secuancia del Auto Fantastico
+void ParteC()
+{
+  for(int c=0; c<4; c++)
+  {
+    delay(300);
+    ON(Led[c]);
+    delay(300);
+    OFF(Led[c]);
+  }
+  for(int c=3; c>=0; c--)
+  {
+    ON(Led[c]);
+    delay(300);
+    OFF(Led[c]);
+    delay(300);
+  }
+}
+//Configuramos los leds para el Auto Fantastico
+void ConfigAF(void)
+{
+  OUT(L0);
+  OUT(L1);
+  OUT(L2);
+  OUT(L3);
+}
+//Configuramos las Comunicaciones del lcd, el monitor serial y el arduino esclavo
+void ConfigC(void) 
+{
+  Wire.begin();
+  Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+}
