@@ -1,0 +1,151 @@
+/*
+Fundacion Kinal 
+Centro educativo tecnico laboral Kinal 
+Quinto perito 
+Quinto electronica 
+Codigo Tecnico: EB5AV 
+Curso: Taller de electronica digital y reparacion de computadoras I 
+Proyecto: Esclavo
+Dev: Luis Fernando Leiva Quezada 
+Fecha: 26 de mayo
+*/
+
+//Se incluyen las librerias para recibir mensajes del maestro y para controlar el Servo Motor
+#include <Wire.h>
+#include <Servo.h>
+
+//Se definen los pines del display 
+#define a 3
+#define b 4
+#define c 5
+#define d 6
+#define e 7
+#define f 8
+#define g 9
+
+//Se definen simplificaciones de codigos de uso cotidiano
+#define ON(pin) digitalWrite(pin, HIGH);
+#define OFF(pin) digitalWrite(pin, LOW);
+#define OUT(pin) pinMode(pin, OUTPUT)
+#define Mover(pin) ServoM.write(pin)
+
+//Se le otorga un nombre a la libreria del Servo Motor
+Servo ServoM;
+
+//Se crean variables del tipo byte para un secuencia y del tipo int igualadas a 0
+byte display[] = {a, b, c, d, e, f, g};
+int y = 0;
+int estado = 0;
+
+//Se establece la foncion que se implementara en el void setup
+void ConfigD(void);
+
+void setup()
+{
+  //Se inicializa la libreria Wire como Esclavo 1
+  Wire.begin(1);
+  Wire.onReceive(receiveEvent);
+  //Se le asigna el pin 2 al Servo Motor y se establece en 0
+  ServoM.attach(2);
+  Mover(0);
+  //Se llaman a las funciones para configurar el Display
+  ConfigD();
+  Apagado();
+}
+
+void loop()
+{ 
+  //Se crea un if para cuando el maestro mande un 1 se llame a la funcion ParteD
+  if(estado==1)
+  {
+    ParteD();
+  }
+  //Se crea un if Para cuando el maestro mande un 2 se mueva el Servo Motor
+  if(estado==2)
+  {
+    Mover(180);
+    delay(2000);
+    Mover(0);
+    estado = 0;
+  }
+  delay(300);
+}
+
+//Se crea la Funcion para realizar una secuencia en el display que diga Electro
+void ParteD()
+{
+  y = y+1;
+  if(y==1 || y==5)
+  {
+    ON(a);
+    ON(d);
+    ON(e);
+    ON(f);
+    ON(g);
+  }
+  if(y==3)
+  {
+    ON(b);
+    ON(c);
+  }
+  if(y==7)
+  {
+    ON(d);
+    ON(e);
+    ON(g);
+  }
+  if(y==9)
+  {
+    ON(e);
+    ON(f);
+    ON(g);
+  }
+  if(y==11)
+  {
+    ON(e);
+    ON(g);
+  }
+  if(y==13)
+  {
+    ON(c);
+    ON(d);
+    ON(e);
+    ON(g);
+  }
+  if(y==2 || y==4 || y==6 || y==8 || y==10 || y==12 || y==14)
+  {
+    Apagado();
+  }
+  if(y==15)
+  {
+    y=0;
+    estado=0;
+  }
+  delay(200);
+}
+
+//Se crea una funcion para que le display no muestre nada
+void Apagado()
+{
+  for(int z=0; z<7; z++)
+  {
+    OFF(display[z]);
+  }
+}
+
+//Se crea una funcion pararecibir lo que mande el maestro
+void receiveEvent(int I2C){
+  
+  if(Wire.available()==1){
+    estado=Wire.read();
+  }
+}
+
+//Se crea una funcion para configurar el Display
+void ConfigD(void)
+{
+  for(int z=0; z<7; z++)
+  {
+    OUT(display[z]);
+  }
+}
