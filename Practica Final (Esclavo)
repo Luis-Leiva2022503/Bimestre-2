@@ -28,6 +28,7 @@ Fecha: 26 de mayo
 #define OFF(pin) digitalWrite(pin, LOW);
 #define OUT(pin) pinMode(pin, OUTPUT)
 #define Mover(pin) ServoM.write(pin)
+#define Escribir(pin) Serial.println(pin)
 
 //Se le otorga un nombre a la libreria del Servo Motor
 Servo ServoM;
@@ -42,6 +43,9 @@ void ConfigD(void);
 
 void setup()
 {
+  //Se inicializa la comunicasion con el monitor serial
+  Serial.begin(9600);
+  Escribir("Inicio esclavo 1");
   //Se inicializa la libreria Wire como Esclavo 1
   Wire.begin(1);
   Wire.onReceive(receiveEvent);
@@ -55,20 +59,64 @@ void setup()
 
 void loop()
 { 
-  //Se crea un if para cuando el maestro mande un 1 se llame a la funcion ParteD
+  //Se crea un if para cuando el maestro mande un 1 se llame a la funcion ParteA
   if(estado==1)
   {
-    ParteD();
+    Escribir("Parte a: Contador del 0 al 99");
+    ParteA();
   }
-  //Se crea un if Para cuando el maestro mande un 2 se mueva el Servo Motor
+  //Se crea un if para cuando el maestro mande un 2 se llame a la funcion ParteB
   if(estado==2)
   {
+    Escribir("Parte b: Contador del 99 al 0");
+    ParteB();
+  }
+  //Se crea un if para cuando el maestro mande un 3 se escribe en el monitor serial
+  if(estado==3)
+  {
+    Escribir("Parte c:");
+    Escribir("Se ejecutara la secuancia del Auto Fantastico con 4 leds");
+    estado = 0;
+  }
+  //Se crea un if para cuando el maestro mande un 4 se llame a la funcion ParteD
+  if(estado==4)
+  {
+    Escribir("Parte d:");
+    Escribir("Se ejecutara la secuencia Electro en el dispaly");
+    ParteD();
+  }
+  //Se crea un if Para cuando el maestro mande un 5 se mueva el Servo Motor
+  if(estado==5)
+  {
+    Escribir("Parte e:");
+    Escribir("Se ejecutara un movimiento de 90° en el servomotor");
     Mover(180);
-    delay(2000);
+    delay(1500);
     Mover(0);
     estado = 0;
   }
   delay(300);
+}
+
+//Se realiza un conteo del 0 al 99 en el monitor serial
+void ParteA()
+{
+  for(int i=0; i<=99; i++)
+  {
+    Escribir(i);
+    delay(500);
+  }
+  estado=0;
+}
+//Se Realiza un conteo del99 al 0 en el monitor serial
+void ParteB()
+{
+  for(int u=99; u>=0; u--)
+  {
+    Escribir(u);
+    delay(500);
+  }
+  estado=0;
 }
 
 //Se crea la Funcion para realizar una secuencia en el display que diga Electro
@@ -121,7 +169,6 @@ void ParteD()
     y=0;
     estado=0;
   }
-  delay(200);
 }
 
 //Se crea una funcion para que le display no muestre nada
