@@ -57,7 +57,6 @@ void setup()
   ConfigAF();
   ConfigC();
   //Se escribe en la pantalla lcd de manera centrada en las 2 columnas
-  delay(400);
   lcd.setCursor(3, 0);
   Escribe("Luis Leiva");
   lcd.setCursor(1, 1);
@@ -74,24 +73,26 @@ void loop()
     //Al precional la tecla 1 se escribe en el monitor serial y se llama a la funcion ParteA
     case('1'):
     {
-      Escribir("Parte a:");
-      delay(100);
+      Comunicasion(1);
+      Escribir("Parte a: Contador del 0 al 99");
       ParteA();
       break;
     }
     //Al precional la tecla 2 se escribe en el monitor serial y se llama a la funcion ParteB
     case('2'):
     {
-      Escribir("Parte b:");
-      delay(100);
+      Comunicasion(2);
+      Escribir("Parte b: Contador del 99 al 0");
       ParteB();
       break;
     }
     //Al precional la tecla 3 se escribe en el monitor serial y se realiza la secuncia del Auto Fantastico con ayuda de la funcion ParteC
     case('3'):
     {
+      Comunicasion(3);
       int x = 0;
       Escribir("Parte c:");
+      Escribir("Se ejecutara la secuancia del Auto Fantastico con 4 leds");
       while(x<=4)
       { 
         ParteC();
@@ -113,25 +114,20 @@ void loop()
     //Al precional la tecla 4 se escribe en el monitor serial y se envia un 1 al escalvo 1
     case('4'):
     {
+      Comunicasion(4);
       Escribir("Parte d:");
-      delay(100);
-      Wire.beginTransmission (1);
-      Wire.write(1);
-      Wire.endTransmission();
+      Escribir("Se ejecutara la secuencia Electro en el dispaly");
       break;
     }
     //Al precional la tecla 5 se escribe en el monitor serial y se envia un 2 al escalvo 1
     case('5'):
     {
+      Comunicasion(5);
       Escribir("Parte e:");
-      delay(100);
-      Wire.beginTransmission (1);
-      Wire.write(2);
-      Wire.endTransmission();
+      Escribir("Se ejecutara un movimiento de 90° en el servomotor");
       break;
     }
-    }
-  delay(500);
+  }
 }
 //Se realiza un conteo del 0 al 99 en el monitor serial
 void ParteA()
@@ -169,6 +165,13 @@ void ParteC()
     delay(300);
   }
 }
+//Se establece una funcion para la comunicasion con el esclavo 1
+void Comunicasion(int o)
+{
+  Wire.beginTransmission (1);
+  Wire.write(o);
+  Wire.endTransmission();
+}
 //Configuramos los leds para el Auto Fantastico
 void ConfigAF(void)
 {
@@ -180,6 +183,12 @@ void ConfigAF(void)
 //Configuramos las Comunicaciones del lcd, el monitor serial y el arduino esclavo
 void ConfigC(void) 
 {
+  Wire.begin();
+  Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+}
   Wire.begin();
   Serial.begin(9600);
   lcd.init();
