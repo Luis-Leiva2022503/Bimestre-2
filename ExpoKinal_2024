@@ -1,0 +1,120 @@
+/*
+  Fundacion Kinal 
+  Centro educativo tecnico laboral Kinal 
+  Quinto perito 
+  Quinto electronica 
+  Codigo Tecnico: EB5AV 
+  Curso: Taller de electronica digital y reparacion de computadoras I 
+  Proyecto: ExpoKinal_2024
+  Dev: Luis Fernando Leiva Quezada 
+  Fecha: 16 de junio
+*/
+
+#include <SoftwareSerial.h>	 //Incluye una libreria para la conexion con el modulo bluetooth
+#include <Stepper.h>        //incluye una libreria para el Motor Stepper
+ 
+Stepper motor(2048, 4, 6, 5, 7);         //Se le asignan los pines y la cantidad de pasos para utilizar el Motor Stepper
+SoftwareSerial blue(2, 3); 	            // pin 2 como TX, pin 3 como RX
+
+//Se definen a los Reles del modulo Rele como R1 y R2 conectados al pin 8 y 9
+#define R1 8
+#define R2 9
+//Se definen codigos basicos
+#define OUT(pin) pinMode(pin, OUTPUT)
+#define ON(pin) pinMode(pin, HIGH);
+#define OFF(pin) pinMode(pin, LOW);
+
+//Se inician valoresen 0
+int i = 0;
+char ValorB = 0;
+
+void setup() 
+{
+  Serial.begin(9600);   //Inicio la comunicacion serial con 9600 baudios
+  blue.begin(9600);    //Inicio de la comunicacion con el modulo bluetooth
+  motor.setSpeed(12); //Se configura la velocidad del Motor Stepper
+  //Se coloca R1 y R2 como salida
+  OUT(R1);
+  OUT(R2);
+  //Se inicializa el motor horizontal como apagado
+  Direccion(1, 0);
+  Direccion(2, 0);
+}
+
+void loop() 
+{
+  //Se envian señales del modulo bluetooth
+  if(blue.available() > 0)
+  {
+    ValorB = blue.read();
+    Serial.println(ValorB);
+  }
+  
+  switch(ValorB)
+  {
+    case 'A':
+    {
+      if(i==0)
+      {
+        Direccion(1, 1);
+      }
+      break;
+    }
+    case 'B':
+    {
+      if(i==0)
+      {
+        Direccion(2, 1);
+      }
+      break;
+    }
+    case 'C':
+    {
+      i = 1-i;
+      break;
+    }
+    case 'D':
+    {
+      motor.step(1);
+      break;
+    }
+    case 'E':
+    {
+      motor.step(-1);
+      break;
+    }
+    case 'F':
+    {
+      Direccion(1, 0);
+      Direccion(2, 0);
+      break;
+    }
+  }
+}
+
+void Encendido(int u)
+{
+  if(u==1)
+  {
+    ON(R1);
+    OFF(R2);
+  }
+  if(u==2)
+  {
+    ON(R2);
+    OFF(R1);
+  }
+}
+
+void Direccion(int e, int o)
+{
+  if(o==0)
+  {
+    OFF(R1);
+    OFF(R2);
+  }
+  if(o==1)
+  {
+    Encendido(e);
+  }
+}
